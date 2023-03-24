@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nom');
             $table->string('marque');
             $table->string('photo');
-            $table->string('description');
+            $table->string('description',length: 2048);
             $table->float('prixLocation');
             $table->integer('quantiteDispo');
             $table->timestamps();

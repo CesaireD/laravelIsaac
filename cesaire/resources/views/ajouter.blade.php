@@ -1,9 +1,18 @@
-@include('layouts/header')
+@extends('template')
+@section('content')
 
     <section id="main-content">
         <section class="wrapper">
-            <div class="panel-body" style="margin-left: 30%; width:60%"><br><br>
-                <h3 style="margin-left: 10%">AJOUTER UN VEHICULE</h3><br><br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="{{route('index')}}">Home</a></li>
+                        <li><i class="fa fa-square-o"></i>Ajouter une nouvelle voiture</li>
+                    </ol><br>
+                    <h3 class="page-header"><i class="fa fa fa-bars"></i> Ajouter une nouvelle voiture</h3>
+                </div>
+            </div>
+                <div class="panel-body" style="margin:0 auto; width:60%">
                 <div class="form">
                     <form class="form-validate form-horizontal" id="feedback_form" method="post" action="{{ route('ajoutPost')}}" enctype="multipart/form-data">
                         @csrf
@@ -55,7 +64,5 @@
 
         </section>
     </section>
+@endsection
 
-
-
-@include('layouts/footer')

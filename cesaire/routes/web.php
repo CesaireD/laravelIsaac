@@ -23,18 +23,18 @@ Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
 Route::get('/auth/register', [HomeController::class, 'register'])->name('register');
 Route::get('/auth/login', [HomeController::class, 'login'])->name('login');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
-Route::get('/single-product', [HomeController::class, 'singleproduct'])->name('singleproduct');
-Route::get('/single-product/{url}', [HomeController::class, 'singleproductU'])->name('singleproductU');
+Route::get('/single-product/{id}', [HomeController::class, 'singleproductU'])->name('singleproductU');
 Route::get('/profile/edit', [HomeController::class, 'profile'])->name('profile');
 Route::get('/ajouter', [HomeController::class, 'ajouter'])->name('ajouter');
-
+Route::get('/adminpage', [HomeController::class ,'adminpage'])->name('adminpage');
 
 Route::post('/ajoutPost', [HomeController::class, 'ajoutPost'])->name('ajoutPost');
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/ajout', [HomeController::class, 'ajout'])->name('ajout');
+Route::post('/ajoutPost', [HomeController::class, 'ajoutPost'])->name('ajoutPost');
+Route::get('/read', [HomeController::class, 'read'])->name('read');
+Route::get('/update.{id}', [HomeController::class, 'update'])->name('update');
+Route::post('/updatePost.{id}', [HomeController::class, 'updatePost'])->name('updatePost');
+Route::get('/delete.{id}', [HomeController::class, 'delete'])->name('delete');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

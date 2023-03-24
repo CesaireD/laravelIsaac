@@ -1,7 +1,7 @@
 @include('layouts/header')
 
 <!--== Start Page Header Area ==-->
-<div class="page-header-wrap bg-img" data-bg="assets/img/bg/page-header-bg.jpg">
+<div class="page-header-wrap bg-img" data-bg="{{asset('assets/img/bg/page-header-bg.jpg')}}">
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
@@ -10,8 +10,8 @@
                         <h1>Detail Produit</h1>
 
                         <ul class="breadcrumb">
-                            <li><a href="index.html">Accueil</a></li>
-                            <li><a href="shop.html">Nos produits</a></li>
+                            <li><a href="../">Accueil</a></li>
+                            <li><a href="../nos-produits">Nos produits</a></li>
                             <li class="current"><a href="#">Detail Produit</a></li>
                         </ul>
                     </div>
@@ -34,43 +34,12 @@
                             <div class="product-thumb-area">
                                 <div class="product-details-thumbnail">
                                     <div class="product-thumbnail-slider" id="thumb-gallery">
-                                        <figure class="pro-thumb-item" data-mfp-src="assets/img/product/product-details-1.png">
-                                            <img src="assets/img/product/product-details-1.png" alt="Product Details" />
-                                        </figure>
-                                        <figure class="pro-thumb-item" data-mfp-src="assets/img/product/product-details-2.png">
-                                            <img src="assets/img/product/product-details-2.png" alt="Product Details" />
-                                        </figure>
-                                        <figure class="pro-thumb-item" data-mfp-src="assets/img/product/product-details-3.png">
-                                            <img src="assets/img/product/product-details-3.png" alt="Product Details" />
-                                        </figure>
-                                        <figure class="pro-thumb-item" data-mfp-src="assets/img/product/product-details-4.png">
-                                            <img src="assets/img/product/product-details-4.png" alt="Product Details" />
-                                        </figure>
-                                        <figure class="pro-thumb-item" data-mfp-src="assets/img/product/product-details-5.png">
-                                            <img src="assets/img/product/product-details-5.png" alt="Product Details" />
+                                        <figure class="pro-thumb-item" data-mfp-src="{{asset('cars/'.$car->photo)}}" height="400px" width="700px"/>
+                                            <img src="{{asset('cars/'.$car->photo)}}" alt="Produit" height="400px" width="700px"/>
                                         </figure>
                                     </div>
-
-                                    <a href="#thumb-gallery" class="btn-large-view btn-gallery-popup">View Larger <i class="fa fa-search-plus"></i></a>
                                 </div>
 
-                                <div class="product-details-thumbnail-nav">
-                                    <figure class="pro-thumb-item">
-                                        <img src="assets/img/product/product-1.png" alt="Product Details" />
-                                    </figure>
-                                    <figure class="pro-thumb-item">
-                                        <img src="assets/img/product/product-2.png" alt="Product Details" />
-                                    </figure>
-                                    <figure class="pro-thumb-item">
-                                        <img src="assets/img/product/product-3.png" alt="Product Details" />
-                                    </figure>
-                                    <figure class="pro-thumb-item">
-                                        <img src="assets/img/product/product-4.png" alt="Product Details" />
-                                    </figure>
-                                    <figure class="pro-thumb-item">
-                                        <img src="assets/img/product/product-5.png" alt="Product Details" />
-                                    </figure>
-                                </div>
                             </div>
                         </div>
                         <!-- End Product Thumbnail Area -->
@@ -79,8 +48,8 @@
                         <div class="col-md-7">
                             <div class="product-details-info-content-wrap">
                                 <div class="prod-details-info-content">
-                                    <h2>Hanging 4K Camera</h2>
-                                    <h5 class="price"><strong>Price:</strong> <span class="price-amount">$325.00</span>
+                                    <h2>{{$car->nom}}</h2><br>
+                                    <h5 class="price"><strong>Prix:</strong> <span class="price-amount">&nbsp;&nbsp;{{$car->prixLocation}} FCFA</span>
                                     </h5>
                                     <p>Pursue pleasure rationally encounter consequences that are extremely painful. Nor
                                         again is there anyone who loves or pursues or desires to obtain pain of itself,
@@ -88,34 +57,8 @@
                                     <p>Pursue pleasure rationally encounter consequences that are extremely painful. Nor
                                         again is there anyone who loves or pursues or desires to obtain pain of itself,
                                         because it is pain, but because occasionally circles occur in and pain can
-                                        procure him some great ple cum solute nobie est eligendi option</p>
+                                        procure him some great ple cum solute nobie est eligendi option</p><br>
 
-                                    <div class="product-config">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered">
-                                                <tr>
-                                                    <th class="config-label">Color</th>
-                                                    <td class="config-option">
-                                                        <div class="config-color">
-                                                            <a href="#">Black</a>
-                                                            <a href="#">Blue</a>
-                                                            <a href="#">Green</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="config-label">Size</th>
-                                                    <td class="config-option">
-                                                        <div class="config-color">
-                                                            <a href="#">Large</a>
-                                                            <a href="#">Medium</a>
-                                                            <a href="#">Small</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
 
                                     <div class="product-action">
                                         <div class="action-top d-sm-flex">
@@ -123,24 +66,8 @@
                                                 <label for="quantity" class="sr-only">Quantity</label>
                                                 <input type="text" id="quantity" title="Quantity" value="1" />
                                             </div>
-                                            <button class="btn btn-bordered">Add to Cart</button>
+                                            <button class="btn btn-bordered">Reserver</button>
                                         </div>
-                                    </div>
-
-                                    <div class="product-meta">
-                                        <span class="sku_wrapper">SKU: <span class="sku">N/A</span></span>
-
-                                        <span class="posted_in">Categories:
-                                            <a href="#">Best Seller,</a>
-                                            <a href="#">Parts,</a>
-                                            <a href="#">Shop</a>
-                                        </span>
-
-                                        <span class="tagged_as">Tags:
-                                            <a href="#">Seller,</a>
-                                            <a href="#">Modern,</a>
-                                            <a href="#">Parts</a>
-                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +84,7 @@
                                         <a class="active" id="desc-tab" data-toggle="tab" href="#descriptionContent" role="tab">Description</a>
                                     </li>
                                     <li>
-                                        <a id="profile-tab" data-toggle="tab" href="#reviewContent">Review (3)</a>
+                                        <a id="profile-tab" data-toggle="tab" href="#reviewContent">Review (2)</a>
                                     </li>
                                 </ul>
 

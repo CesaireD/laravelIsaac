@@ -3,18 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Location;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('Home');
+        $lists = Car::all();
+        return view('Home',['lists'=>$lists]);
+    }
+
+    public function dashboard()
+    {
+        $lists = Car::all();
+        return view('Home', ['lists'=>$lists]);
     }
 
     public function nouscontacter()
     {
         return view('nous-contacter');
+    }
+
+    public function adminpage()
+    {
+        $listCar = Car::all();
+        $listLoc = Location::all();
+        $tv = 0;
+        $te = 0;
+
+        foreach ($listCar as $car){
+            $tv += $car->quantiteDispo;//$car->prixLocation;
+        }
+        foreach ($listLoc as $loc){
+            $te ++;
+        }
+
+
+        return view('adminpage', ['tV' => $tv, 'tE' => $te]);
     }
 
     public function apropos()
@@ -24,12 +50,19 @@ class HomeController extends Controller
 
     public function gallery()
     {
-        return view('gallery');
+        $listloc = Location::all();
+        $lists = array();
+        foreach ($listloc as $loc){
+            $lists[] = Car::findOrFail($loc->car_id);
+        }
+
+        return view('gallery', ['lists'=>$lists]);
     }
 
     public function nosproduits()
     {
-        return view('nos-produits');
+        $lists = Car::all();
+        return view('nos-produits',['lists'=>$lists]);
     }
 
     public function login()
@@ -41,21 +74,28 @@ class HomeController extends Controller
     {
         return view('/auth/register');
     }
-    public function dashboard()
+
+    public function singleproduct($id)
     {
-        return view('dashboard');
+        $theCar = Car::findOrFail($id);
+        return view('single-product',['car' => $theCar]);
     }
-    public function singleproduct(){
-        $url = request('url');
-        return view('single-product');
-    }
-    public function singleproductU(Request $request){
-        $url = request('url');
-        return view('single-product',['url' => \request('url')]);
+    public function singleproductU($id){
+        $theCar = Car::findOrFail($id);
+        return view('single-product',['car' => $theCar]);
     }
 
     public function profile(){
         return view('/profile/edit');
+    }
+
+    public function ajout() {
+        $listloc = Location::all();
+        $lists = array();
+        foreach ($listloc as $loc){
+            $lists[] = Car::findOrFail($loc->car_id);
+        }
+        return view('location',['lists' => $lists]);
     }
 
     public function ajouter(){
@@ -63,7 +103,7 @@ class HomeController extends Controller
     }
 
     public function ajoutPost(Request $request) {
-        $request->validate(
+        $validateData = $request->validate(
             [
                 "nom"=>['required'],
                 "marque"=>['required'],
@@ -71,27 +111,29 @@ class HomeController extends Controller
                 "prix"=>['required'],
                 "quantite"=>['required']
             ]);
-        $path = $request->file('img')->store('images');
-        Car::create([
-            "nom"=>$request->nom,
-            "marque"=>$request->marque,
-            "photo"=>$path,
-            "description"=>$request->description,
-            "prixLocation"=>$request->prix,
-            "quantiteDispo"=>$request->quantite
-        ]);
-        return redirect()->back()->with('statut', 'Voiture ajoutée!');
-        // dd($request->all());
+
+        $car = new Car();
+        $car->nom = $validateData["nom"];
+        $car->marque = $validateData["marque"];
+        $car->description = $validateData["description"];
+        $car->prixLocation = $validateData["prix"];
+        $car->quantiteDispo = $validateData["quantite"];
+
+        $image = $request->img;
+        $imagename = time().'.'.$image->getClientOriginalExtension();
+        $request->img->move('cars', $imagename);
+        $car->photo = $imagename;
+        $car->save();
     }
 
     public function read() {
         $lists = Car::all();
-        return view('admin.read', ['lists'=>$lists]);
+        return view('voitures', ['lists'=>$lists]);
     }
 
     public function update($id) {
         $car = Car::findOrFail($id);
-        return view('admin.update', ['car'=>$car]);
+        return view('update', ['car'=>$car]);
     }
 
     public function updatePost($id, Request $request) {
